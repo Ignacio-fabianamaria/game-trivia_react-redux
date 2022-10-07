@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class Login extends Component {
   state = {
@@ -8,7 +9,6 @@ export default class Login extends Component {
   };
 
   validateBtn = () => {
-    console.log('chamando');
     const { email, nome } = this.state;
     const regex = /\S+@\S+\.\S+/;
     const MIN_CHARACTERS = 1;
@@ -23,6 +23,21 @@ export default class Login extends Component {
     this.setState({ [target.name]: target.value }, () => {
       this.validateBtn();
     });
+  };
+
+  onClick = async () => {
+    const { history } = this.props;
+
+    // const response = await fetch('https://opentdb.com/api_token.php?command=request')
+    // const json = await response.json()
+    // localStorage.setItem('token', json.token)
+
+    fetch('https://opentdb.com/api_token.php?command=request')
+      .then((response) => response.json())
+      .then((jsonResponse) => localStorage.setItem('token', jsonResponse.token))
+      .catch(() => localStorage.setItem('token', 'erro'));
+
+    history.push('/TESTANDO');
   };
 
   render() {
@@ -53,7 +68,12 @@ export default class Login extends Component {
             />
           </label>
           <br />
-          <button type="button" data-testid="btn-play" disabled={ isBtnDisabled }>
+          <button
+            type="button"
+            data-testid="btn-play"
+            disabled={ isBtnDisabled }
+            onClick={ this.onClick }
+          >
             Play
           </button>
         </form>
@@ -61,3 +81,7 @@ export default class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.shape({ push: PropTypes.func }).isRequired,
+};
