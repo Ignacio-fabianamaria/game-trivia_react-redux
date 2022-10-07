@@ -29,7 +29,7 @@ export default class Login extends Component {
     const { history } = this.props;
 
     // const response = await fetch('https://opentdb.com/api_token.php?command=request')
-    // const json = await response.json()
+    // const json = await response.json() 
     // localStorage.setItem('token', json.token)
 
     fetch('https://opentdb.com/api_token.php?command=request')
