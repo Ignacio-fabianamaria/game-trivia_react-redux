@@ -16,13 +16,18 @@ export default class Login extends Component {
     const validateName = nome.length >= MIN_CHARACTERS;
     this.setState({ isBtnDisabled: !(validateEmail && validateName) });
     // atualiza o estado da chave isBtnDisabled
-    // quando a validação do email e password retornarem true, isBtnDisabled atualiza para false
+    // quando a validação do email e password retornarem true, isBtnDisabled atualiza para false.
   };
 
   handleChange = ({ target }) => {
     this.setState({ [target.name]: target.value }, () => {
       this.validateBtn();
     });
+  };
+
+  settingsClick = () => {
+    const { history } = this.props;
+    history.push('/settings');
   };
 
   onClick = async () => {
@@ -77,6 +82,13 @@ export default class Login extends Component {
             Play
           </button>
         </form>
+        <button
+          data-testid="btn-settings"
+          type="button"
+          onClick={ this.settingsClick }
+        >
+          Settings
+        </button>
       </div>
     );
   }
