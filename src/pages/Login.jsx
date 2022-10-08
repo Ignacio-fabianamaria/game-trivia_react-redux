@@ -25,6 +25,11 @@ export default class Login extends Component {
     });
   };
 
+  settingsClick = () => {
+    const { history } = this.props;
+    history.push('/settings');
+  };
+
   onClick = async () => {
     const { history } = this.props;
 
@@ -77,6 +82,13 @@ export default class Login extends Component {
             Play
           </button>
         </form>
+        <button
+          data-testid="btn-settings"
+          type="button"
+          onClick={ this.settingsClick }
+        >
+          Settings
+        </button>
       </div>
     );
   }
