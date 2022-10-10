@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import Header from '../components/Header';
 
-export default class Settings extends Component {
+export default class Game extends Component {
   render() {
     return (
       <div>
-        <h2 data-testid="settings-title">GAME Component</h2>
+        <h2>GAME Component</h2>
         <Header />
       </div>
     );
