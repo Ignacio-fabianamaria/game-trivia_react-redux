@@ -13,8 +13,8 @@ class Header extends Component {
   }
 
   emailToHash = async () => {
-    // const { email } = this.props;
-    const urlImg = await MD5('jefferson.felix182@gmail.com').toString();
+    const { email } = this.props;
+    const urlImg = await MD5(email).toString();
     this.setState({ urlImg });
     console.log(urlImg);
   };
@@ -37,13 +37,13 @@ class Header extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  name: state.name,
-  email: state.email,
+  name: state.player.name.nome,
+  email: state.player.name.email,
 });
 
 Header.propTypes = {
   name: PropTypes.string.isRequired,
-  // email: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps)(Header);

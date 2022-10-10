@@ -1,8 +1,13 @@
-import actionTypes from './action types';
+import actionTypes from './actionTypes';
 
-const { ADD_LOGIN } = actionTypes;
+const { ADD_PLAYER } = actionTypes;
 
-export default addEmail = (payload) => ({
-  type: ADD_LOGIN,
-  payload,
-});
+export default function addPlayerAction(name, gravatarEmail) {
+  return {
+    type: ADD_PLAYER,
+    payload: {
+      name,
+      gravatarEmail,
+    },
+  };
+}
