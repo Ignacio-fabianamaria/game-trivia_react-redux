@@ -10,6 +10,13 @@ class Login extends Component {
     isBtnDisabled: true,
   };
 
+  componentDidMount() {
+    fetch('https://opentdb.com/api_token.php?command=request')
+      .then((response) => response.json())
+      .then((jsonResponse) => localStorage.setItem('token', jsonResponse.token))
+      .catch(() => localStorage.setItem('token', 'erro'));
+  }
+
   validateBtn = () => {
     const { email, nome } = this.state;
     const regex = /\S+@\S+\.\S+/;
@@ -32,6 +39,7 @@ class Login extends Component {
     history.push('/settings');
   };
 
+
   onClick = async () => {
     const { history, dispatch } = this.props;
     const { email, nome } = this.state;
@@ -41,17 +49,8 @@ class Login extends Component {
         nome,
       }),
     );
-
-    // const response = await fetch('https://opentdb.com/api_token.php?command=request')
-    // const json = await response.json()
-    // localStorage.setItem('token', json.token)
-
-    fetch('https://opentdb.com/api_token.php?command=request')
-      .then((response) => response.json())
-      .then((jsonResponse) => localStorage.setItem('token', jsonResponse.token))
-      .catch(() => localStorage.setItem('token', 'erro'));
-
     history.push('/game');
+
   };
 
   render() {
