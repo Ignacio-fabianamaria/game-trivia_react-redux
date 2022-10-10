@@ -15,8 +15,9 @@ export const getTriviaQuestions = (payload) => ({
   payload,
 });
 
-export const getTrivia = (userToken) => async (dispatch) => {
-  const triviaData = await fetch(`https://opentdb.com/api.php?amount=5&token=${userToken}`);
+export const getTrivia = () => async (dispatch) => {
+  const getToken = localStorage.getItem('token');
+  const triviaData = await fetch(`https://opentdb.com/api.php?amount=5&token=${getToken}`);
   const response = await triviaData.json(getToken);
   // const questions = Object.entries(response)[1][1];
   dispatch(getTriviaQuestions(response));

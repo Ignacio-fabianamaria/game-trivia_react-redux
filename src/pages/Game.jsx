@@ -5,15 +5,14 @@ import { getTrivia } from '../Redux/Actions';
 
 class Game extends Component {
   state = {
-    questNumber: 0,
     arrayAnswers: [],
-    userToken: localStorage.getItem('token'),
   };
 
   async componentDidMount() {
-    const { userToken } = this.state;
+    const getToken = localStorage.getItem('token');
+    console.log(getToken, 'token');
     const { dispatch } = this.props;
-    await dispatch(getTrivia(userToken));
+    await dispatch(getTrivia(getToken));
     this.checkToken();
     this.setAnswers();
   }
@@ -22,7 +21,7 @@ class Game extends Component {
     const { questions } = this.props;
     const errorCode = 3;
     const { history } = this.props;
-    if (questions && questions.response_code === errorCode) {
+    if (questions.response_code === errorCode) {
       localStorage.removeItem('token');
       history.push('/');
     }
@@ -42,7 +41,7 @@ class Game extends Component {
 
   setAnswers = () => {
     this.setState({
-      arrayAnswers: [...this.renderQuestion().incorrect_answers,
+      arrayAnswers: this.renderQuestion() && [...this.renderQuestion().incorrect_answers,
         this.renderQuestion()?.correct_answer],
     }, () => {
       const { arrayAnswers } = this.state;
