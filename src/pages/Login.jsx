@@ -42,7 +42,7 @@ export default class Login extends Component {
       .then((jsonResponse) => localStorage.setItem('token', jsonResponse.token))
       .catch(() => localStorage.setItem('token', 'erro'));
 
-    history.push('/TESTANDO');
+    history.push('/game');
   };
 
   render() {
