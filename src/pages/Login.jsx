@@ -8,12 +8,12 @@ export default class Login extends Component {
     isBtnDisabled: true,
   };
 
-  // componentDidMount() {
-  //   fetch('https://opentdb.com/api_token.php?command=request')
-  //     .then((response) => response.json())
-  //     .then((jsonResponse) => localStorage.setItem('token', jsonResponse.token))
-  //     .catch(() => localStorage.setItem('token', 'erro'));
-  // }
+  componentDidMount() {
+    fetch('https://opentdb.com/api_token.php?command=request')
+      .then((response) => response.json())
+      .then((jsonResponse) => localStorage.setItem('token', jsonResponse.token))
+      .catch(() => localStorage.setItem('token', 'erro'));
+  }
 
   validateBtn = () => {
     const { email, nome } = this.state;
@@ -37,19 +37,18 @@ export default class Login extends Component {
     history.push('/settings');
   };
 
-  onClick = async () => {
+  onClick = () => {
     const { history } = this.props;
-
-    const response = await fetch('https://opentdb.com/api_token.php?command=request');
-    const json = await response.json();
-    localStorage.setItem('token', json.token);
     history.push('/game');
+
+    // const response = await fetch('https://opentdb.com/api_token.php?command=request')
+    // const json = await response.json()
+    // localStorage.setItem('token', json.token)
 
     // fetch('https://opentdb.com/api_token.php?command=request')
     //   .then((response) => response.json())
     //   .then((jsonResponse) => {
     //     localStorage.setItem('token', jsonResponse.token);
-    //     history.push('/game');
     //   })
     //   .catch(() => localStorage.setItem('token', 'erro'));
   };

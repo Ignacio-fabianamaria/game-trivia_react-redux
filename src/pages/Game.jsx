@@ -21,7 +21,7 @@ class Game extends Component {
     const { questions } = this.props;
     const errorCode = 3;
     const { history } = this.props;
-    if (questions.response_code === errorCode) {
+    if (questions?.response_code === errorCode) {
       localStorage.removeItem('token');
       history.push('/');
     }
