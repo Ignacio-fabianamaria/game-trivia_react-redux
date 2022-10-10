@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getTrivia } from '../Redux/Actions';
+import Header from '../components/Header';
 
 class Game extends Component {
   state = {
@@ -57,7 +58,7 @@ class Game extends Component {
     const { arrayAnswers } = this.state;
     return (
       <div>
-        Game
+        <Header />
         <h3
           data-testid="question-category"
         >
@@ -94,6 +95,10 @@ class Game extends Component {
         </section>
 
         {/* <button type="button" onClick={ this.setAnswers }>log</button> */}
+      </div>
+    );
+  }
+}
 
 const mapStateToProps = (state) => ({
   questions: state.game.questions,
@@ -108,4 +113,3 @@ Game.propTypes = {
   }),
   questions: PropTypes.arrayOf(PropTypes.string),
 }.isRequired;
-
