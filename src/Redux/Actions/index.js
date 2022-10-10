@@ -1,14 +1,9 @@
 import actionTypes from './actionTypes';
 
 const {
-  ADD_LOGIN,
+  ADD_PLAYER,
   GET_TRIVIA_QUESTIONS,
 } = actionTypes;
-
-export const addEmail = (payload) => ({
-  type: ADD_LOGIN,
-  payload,
-});
 
 export const getTriviaQuestions = (payload) => ({
   type: GET_TRIVIA_QUESTIONS,
@@ -23,8 +18,6 @@ export const getTrivia = () => async (dispatch) => {
   dispatch(getTriviaQuestions(response));
 };
 
-const { ADD_PLAYER } = actionTypes;
-
 export function addPlayerAction(name, gravatarEmail) {
   return {
     type: ADD_PLAYER,
@@ -34,4 +27,3 @@ export function addPlayerAction(name, gravatarEmail) {
     },
   };
 }
-

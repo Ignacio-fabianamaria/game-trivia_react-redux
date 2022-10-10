@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import addPlayerAction from '../Redux/Actions';
+import { addPlayerAction } from '../Redux/Actions';
 
 class Login extends Component {
   state = {
@@ -39,8 +39,7 @@ class Login extends Component {
     history.push('/settings');
   };
 
-
-  onClick = async () => {
+  onClick = () => {
     const { history, dispatch } = this.props;
     const { email, nome } = this.state;
     dispatch(
@@ -51,10 +50,20 @@ class Login extends Component {
     );
     history.push('/game');
 
+    // const response = await fetch('https://opentdb.com/api_token.php?command=request')
+    // const json = await response.json()
+    // localStorage.setItem('token', json.token)
+
+    // fetch('https://opentdb.com/api_token.php?command=request')
+    //   .then((response) => response.json())
+    //   .then((jsonResponse) => {
+    //     localStorage.setItem('token', jsonResponse.token);
+    //   })
+    //   .catch(() => localStorage.setItem('token', 'erro'));
   };
 
   render() {
-    const { isBtnDisabled, nome, email } = this.state;
+    const { isBtnDisabled } = this.state;
     return (
       <div>
         <h1>LOGIN</h1>
@@ -63,7 +72,6 @@ class Login extends Component {
             Nome
             <input
               id="nome"
-              value={ nome }
               data-testid="input-player-name"
               type="text"
               name="nome"
@@ -75,7 +83,6 @@ class Login extends Component {
             Email
             <input
               id="email"
-              value={ email }
               data-testid="input-gravatar-email"
               type="text"
               name="email"
