@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+// import addEmail from '../Redux/Actions';
 
-export default class Login extends Component {
+class Login extends Component {
   state = {
     nome: '',
     email: '',
@@ -30,6 +32,16 @@ export default class Login extends Component {
     history.push('/settings');
   };
 
+  /*   dispatchLogin = () => {
+    const { dispatch } = this.props;
+    const { email } = this.state;
+    dispatch(
+      addEmail({
+        email,
+      }),
+    );
+  }; */
+
   onClick = async () => {
     const { history } = this.props;
 
@@ -41,12 +53,11 @@ export default class Login extends Component {
       .then((response) => response.json())
       .then((jsonResponse) => localStorage.setItem('token', jsonResponse.token))
       .catch(() => localStorage.setItem('token', 'erro'));
-
-    history.push('/TESTANDO');
+    history.push('/game');
   };
 
   render() {
-    const { isBtnDisabled } = this.state;
+    const { isBtnDisabled, nome, email } = this.state;
     return (
       <div>
         <h1>LOGIN</h1>
@@ -55,6 +66,7 @@ export default class Login extends Component {
             Nome
             <input
               id="nome"
+              value={ nome }
               data-testid="input-player-name"
               type="text"
               name="nome"
@@ -66,6 +78,7 @@ export default class Login extends Component {
             Email
             <input
               id="email"
+              value={ email }
               data-testid="input-gravatar-email"
               type="text"
               name="email"
@@ -95,5 +108,8 @@ export default class Login extends Component {
 }
 
 Login.propTypes = {
+  // dispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({ push: PropTypes.func }).isRequired,
 };
+
+export default connect()(Login);
