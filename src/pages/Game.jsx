@@ -94,10 +94,6 @@ class Game extends Component {
         </section>
 
         {/* <button type="button" onClick={ this.setAnswers }>log</button> */}
-      </div>
-    );
-  }
-}
 
 const mapStateToProps = (state) => ({
   questions: state.game.questions,
@@ -112,3 +108,4 @@ Game.propTypes = {
   }),
   questions: PropTypes.arrayOf(PropTypes.string),
 }.isRequired;
+

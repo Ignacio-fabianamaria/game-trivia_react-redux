@@ -22,3 +22,16 @@ export const getTrivia = () => async (dispatch) => {
   // const questions = Object.entries(response)[1][1];
   dispatch(getTriviaQuestions(response));
 };
+
+const { ADD_PLAYER } = actionTypes;
+
+export function addPlayerAction(name, gravatarEmail) {
+  return {
+    type: ADD_PLAYER,
+    payload: {
+      name,
+      gravatarEmail,
+    },
+  };
+}
+
