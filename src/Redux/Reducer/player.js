@@ -12,7 +12,11 @@ const INITIAL_STATE = {
 function player(state = INITIAL_STATE, action) {
   switch (action.type) {
   case ADD_PLAYER:
-    return { ...state, ...action.payload };
+    return {
+      ...state,
+      name: action.payload.name.nome,
+      gravatarEmail: action.payload.name.email,
+    };
   case ADD_POINTS:
     return { ...state, ...action.payload };
   default:
