@@ -18,7 +18,7 @@ class Feedback extends Component {
     const { name, score } = this.props;
     const { urlImg } = this.state;
     console.log(score, 'SCORE');
-    const magicN = 3
+    const magicN = 3;
     const verifScore = score >= magicN;
     return (
       <div>
