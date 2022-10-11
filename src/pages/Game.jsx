@@ -9,6 +9,8 @@ class Game extends Component {
     arrayAnswers: [],
     correct: 'black',
     incorrect: 'black',
+    timer: 30,
+    isBtnAnswerDisable: false,
   };
 
   async componentDidMount() {
@@ -18,6 +20,7 @@ class Game extends Component {
     await dispatch(getTrivia(getToken));
     this.checkToken();
     this.setAnswers();
+    this.gameTimer();
   }
 
   checkToken = () => {
@@ -55,6 +58,22 @@ class Game extends Component {
     });
   };
 
+  gameTimer = () => {
+    const second = 1000;
+    const idSetInterval = setInterval(() => {
+      this.setState((prevState) => ({
+        timer: prevState.timer - 1,
+      }), () => {
+        const { timer } = this.state;
+        if (timer === 0) {
+          console.log(idSetInterval);
+          clearInterval(idSetInterval);
+          this.setState({ isBtnAnswerDisable: true });
+        }
+      });
+    }, second);
+  };
+
   handleColor = () => {
     this.setState({
       correct: 'solid rgb(6, 240, 15) 3px',
@@ -64,10 +83,11 @@ class Game extends Component {
 
   render() {
     const { questions } = this.props;
-    const { arrayAnswers, correct, incorrect } = this.state;
+    const { arrayAnswers, correct, incorrect, timer, isBtnAnswerDisable } = this.state;
     return (
       <div>
         <Header />
+        <h1>{ timer }</h1>
         <h3
           data-testid="question-category"
         >
@@ -84,6 +104,7 @@ class Game extends Component {
 
                 <button
                   type="button"
+                  disabled={ isBtnAnswerDisable }
                   data-testid="correct-answer"
                   style={ { border: correct } }
                   onClick={ () => { this.handleColor(); } }
@@ -97,6 +118,7 @@ class Game extends Component {
               <button
                 key={ answer }
                 type="button"
+                disabled={ isBtnAnswerDisable }
                 data-testid={ `wrong-answer-${index}` }
                 style={ { border: incorrect } }
                 onClick={ () => { this.handleColor(); } }
