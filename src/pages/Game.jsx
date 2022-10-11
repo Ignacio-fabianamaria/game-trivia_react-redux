@@ -7,6 +7,8 @@ import Header from '../components/Header';
 class Game extends Component {
   state = {
     arrayAnswers: [],
+    correct: 'black',
+    incorrect: 'black',
   };
 
   async componentDidMount() {
@@ -53,9 +55,16 @@ class Game extends Component {
     });
   };
 
+  handleColor = () => {
+    this.setState({
+      correct: 'solid rgb(6, 240, 15) 3px',
+      incorrect: 'solid red 3px',
+    });
+  };
+
   render() {
     const { questions } = this.props;
-    const { arrayAnswers } = this.state;
+    const { arrayAnswers, correct, incorrect } = this.state;
     return (
       <div>
         <Header />
@@ -76,8 +85,10 @@ class Game extends Component {
                 <button
                   type="button"
                   data-testid="correct-answer"
+                  style={ { border: correct } }
+                  onClick={ () => { this.handleColor(); } }
                 >
-                  {answer}
+                  <p>{answer}</p>
 
                 </button>
               );
@@ -87,8 +98,10 @@ class Game extends Component {
                 key={ answer }
                 type="button"
                 data-testid={ `wrong-answer-${index}` }
+                style={ { border: incorrect } }
+                onClick={ () => { this.handleColor(); } }
               >
-                {answer}
+                <p>{answer}</p>
               </button>
             );
           })}
