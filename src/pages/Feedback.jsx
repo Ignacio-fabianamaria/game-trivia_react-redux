@@ -17,6 +17,8 @@ class Feedback extends Component {
   render() {
     const { name, score } = this.props;
     const { urlImg } = this.state;
+    console.log(score,'SCORE');
+    const verifScore = score >= 3
     return (
       <div>
         <h1>Feedback Component</h1>
@@ -29,6 +31,10 @@ class Feedback extends Component {
           <h2 data-testid="header-player-name">{ name }</h2>
           <h2 data-testid="header-score">{ score }</h2>
         </header>
+        {verifScore?
+        <p data-testid='feedback-text'>Well Done!</p>:
+        <p data-testid='feedback-text'>Could be better...</p>
+        }
       </div>
     );
   }
