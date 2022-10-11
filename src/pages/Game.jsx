@@ -88,6 +88,7 @@ class Game extends Component {
       <div>
         <Header />
         <h1>{ timer }</h1>
+        <p>Game</p>
         <h3
           data-testid="question-category"
         >
