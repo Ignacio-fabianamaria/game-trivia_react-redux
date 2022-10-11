@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getTrivia } from '../Redux/Actions';
+import { getTrivia, getScore } from '../Redux/Actions';
 import Header from '../components/Header';
 
 class Game extends Component {
@@ -11,11 +11,11 @@ class Game extends Component {
     incorrect: 'black',
     timer: 30,
     isBtnAnswerDisable: false,
+    score: 0,
   };
 
   async componentDidMount() {
     const getToken = localStorage.getItem('token');
-    console.log(getToken, 'token');
     const { dispatch } = this.props;
     await dispatch(getTrivia(getToken));
     this.checkToken();
@@ -35,8 +35,10 @@ class Game extends Component {
 
   renderQuestion = () => {
     const { questions } = this.props;
-    const renderQuestion = questions.results[0];
-    return renderQuestion;
+    if (questions.results) {
+      const renderQuestion = questions?.results[0];
+      return renderQuestion;
+    }
   };
 
   shuffle = (array) => {
@@ -66,7 +68,7 @@ class Game extends Component {
       }), () => {
         const { timer } = this.state;
         if (timer === 0) {
-          console.log(idSetInterval);
+          // console.log(idSetInterval);
           clearInterval(idSetInterval);
           this.setState({ isBtnAnswerDisable: true });
         }
@@ -81,9 +83,38 @@ class Game extends Component {
     });
   };
 
+  difficultyScore = (difficulty) => {
+    const hard = 3;
+    const medium = 2;
+    const easy = 1;
+    let difficultyPoint = 0;
+    if (difficulty === 'hard') {
+      difficultyPoint = hard;
+    } else if (difficulty === 'medium') {
+      difficultyPoint = medium;
+    } else {
+      difficultyPoint = easy;
+    }
+    return difficultyPoint;
+  };
+
+  playerScore = ({ target }) => {
+    const correctAns = 10;
+    const { timer } = this.state;
+    const difficultyPoint = this.difficultyScore(target.id);
+    if (target.value === 'correct') {
+      const { dispatch } = this.props;
+      const score = correctAns + (timer * difficultyPoint);
+      dispatch(getScore(score));
+    }
+
+    this.handleColor();
+  };
+
   render() {
     const { questions } = this.props;
     const { arrayAnswers, correct, incorrect, timer, isBtnAnswerDisable } = this.state;
+    console.log(arrayAnswers);
     return (
       <div>
         <Header />
@@ -99,17 +130,19 @@ class Game extends Component {
         </p>
         <section data-testid="answer-options">
           {arrayAnswers.map((answer, index = 0) => {
-            if (answer === this.renderQuestion().correct_answer) {
+            if (answer === this.renderQuestion()?.correct_answer) {
               return (
 
                 <button
                   type="button"
                   disabled={ isBtnAnswerDisable }
+                  id={ this.renderQuestion()?.difficulty }
                   data-testid="correct-answer"
                   style={ { border: correct } }
-                  onClick={ () => { this.handleColor(); } }
+                  onClick={ this.playerScore }
+                  value="correct"
                 >
-                  <p>{answer}</p>
+                  {answer}
 
                 </button>
               );
@@ -117,13 +150,15 @@ class Game extends Component {
             return (
               <button
                 key={ answer }
+                id={ this.renderQuestion()?.difficulty }
                 type="button"
                 disabled={ isBtnAnswerDisable }
                 data-testid={ `wrong-answer-${index}` }
                 style={ { border: incorrect } }
-                onClick={ () => { this.handleColor(); } }
+                onClick={ this.playerScore }
+                value="incorrect"
               >
-                <p>{answer}</p>
+                {answer}
               </button>
             );
           })}

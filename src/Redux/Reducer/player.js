@@ -1,6 +1,6 @@
 import actionTypes from '../Actions/actionTypes';
 
-const { ADD_PLAYER, ADD_POINTS } = actionTypes;
+const { ADD_PLAYER, ADD_POINTS, GET_SCORE } = actionTypes;
 
 const INITIAL_STATE = {
   name: '',
@@ -19,8 +19,13 @@ function player(state = INITIAL_STATE, action) {
     };
   case ADD_POINTS:
     return { ...state, ...action.payload };
+  case GET_SCORE:
+    return {
+      ...state,
+      score: action.payload,
+    };
   default:
-    return state;
+    return { ...state };
   }
 }
 
