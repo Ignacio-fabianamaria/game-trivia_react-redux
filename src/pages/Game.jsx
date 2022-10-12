@@ -80,6 +80,7 @@ class Game extends Component {
     this.setState({
       correct: 'solid rgb(6, 240, 15) 3px',
       incorrect: 'solid red 3px',
+      isBtnAnswerDisable: true,
     });
   };
 
@@ -109,6 +110,10 @@ class Game extends Component {
     }
 
     this.handleColor();
+  };
+
+  nextQuestion = () => {
+    console.log('teste botão');
   };
 
   render() {
@@ -164,7 +169,15 @@ class Game extends Component {
             );
           })}
         </section>
-
+        {isBtnAnswerDisable && (
+          <button
+            type="button"
+            data-testid="btn-next"
+            onClick={ this.nextQuestion }
+          >
+            Next
+          </button>
+        )}
         {/* <button type="button" onClick={ this.setAnswers }>log</button> */}
       </div>
     );
