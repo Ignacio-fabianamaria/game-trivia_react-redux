@@ -23,6 +23,16 @@ class Game extends Component {
     this.gameTimer();
   }
 
+  loginClick = () => {
+    const { history } = this.props;
+    history.push('/');
+  };
+
+  rankingClick = () => {
+    const { history } = this.props;
+    history.push('/ranking');
+  };
+
   checkToken = () => {
     const { questions } = this.props;
     const errorCode = 3;
@@ -197,6 +207,20 @@ class Game extends Component {
           </button>
         )}
         {/* <button type="button" onClick={ this.setAnswers }>log</button> */}
+        <button
+          data-testid="btn-play-again"
+          type="button"
+          onClick={ this.loginClick }
+        >
+          Play Again
+        </button>
+        <button
+          data-testid="btn-play-again"
+          type="button"
+          onClick={ this.rankingClick }
+        >
+          Ranking
+        </button>
       </div>
     );
   }
