@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   name: '',
   assertions: 0,
   score: 0,
+  corAnswers: 0,
   gravatarEmail: '',
 };
 
@@ -22,7 +23,8 @@ function player(state = INITIAL_STATE, action) {
   case GET_SCORE:
     return {
       ...state,
-      score: action.payload,
+      score: action.payload.totScore,
+      corAnswers: action.payload.totAnswers,
     };
   default:
     return { ...state };

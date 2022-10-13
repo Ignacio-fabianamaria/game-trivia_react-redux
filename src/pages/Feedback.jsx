@@ -15,11 +15,11 @@ class Feedback extends Component {
   }
 
   render() {
-    const { name, score } = this.props;
+    const { name, score, corAnswers } = this.props;
     const { urlImg } = this.state;
     console.log(score, 'SCORE');
     const magicN = 3;
-    const verifScore = score >= magicN;
+    const verifScore = corAnswers >= magicN;
     return (
       <div>
         <h1>Feedback Component</h1>
@@ -43,12 +43,14 @@ class Feedback extends Component {
 const mapStateToProps = (state) => ({
   name: state.player.name,
   score: state.player.score,
+  corAnswers: state.player.corAnswers,
 });
 
 Feedback.propTypes = {
   name: PropTypes.string.isRequired,
   gravatarEmail: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
+  corAnswers: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps)(Feedback);

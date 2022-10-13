@@ -106,10 +106,11 @@ class Game extends Component {
     const difficultyPoint = this.difficultyScore(target.id);
     if (target.value === 'correct') {
     //  this.setState({ scoreQuestion: correctAns + (timer * difficultyPoint) });
-      const { dispatch, score } = this.props;
+      const { dispatch, score, corAnswers } = this.props;
       const scoreQuestion = correctAns + (timer * difficultyPoint);
       const totScore = scoreQuestion + score;
-      dispatch(getScore(totScore));
+      const totAnswers = corAnswers + 1;
+      dispatch(getScore({ totScore, totAnswers }));
     }
     this.setState({ isBtnAnswerDisable: true });
     this.handleColor();
@@ -204,6 +205,7 @@ class Game extends Component {
 const mapStateToProps = (state) => ({
   questions: state.game.questions,
   score: state.player.score,
+  corAnswers: state.player.corAnswers,
 });
 
 export default connect(mapStateToProps)(Game);
