@@ -7,11 +7,12 @@ import Header from '../components/Header';
 class Game extends Component {
   state = {
     arrayAnswers: [],
+    curentQuestion: 0,
     correct: 'black',
     incorrect: 'black',
     timer: 30,
     isBtnAnswerDisable: false,
-    // score: 0,
+    // scoreQuestion: 0,
   };
 
   async componentDidMount() {
@@ -35,8 +36,10 @@ class Game extends Component {
 
   renderQuestion = () => {
     const { questions } = this.props;
+    // console.log(questions.results);
+    const { curentQuestion } = this.state;
     if (questions.results) {
-      const renderQuestion = questions?.results[0];
+      const renderQuestion = questions?.results[curentQuestion];
       return renderQuestion;
     }
   };
@@ -80,7 +83,6 @@ class Game extends Component {
     this.setState({
       correct: 'solid rgb(6, 240, 15) 3px',
       incorrect: 'solid red 3px',
-      isBtnAnswerDisable: true,
     });
   };
 
@@ -104,22 +106,38 @@ class Game extends Component {
     const { timer } = this.state;
     const difficultyPoint = this.difficultyScore(target.id);
     if (target.value === 'correct') {
-      const { dispatch } = this.props;
-      const score = correctAns + (timer * difficultyPoint);
-      dispatch(getScore(score));
+    //  this.setState({ scoreQuestion: correctAns + (timer * difficultyPoint) });
+      const { dispatch, score } = this.props;
+      const scoreQuestion = correctAns + (timer * difficultyPoint);
+      const totScore = scoreQuestion + score;
+      dispatch(getScore(totScore));
     }
-
+    this.setState({ isBtnAnswerDisable: true });
     this.handleColor();
   };
 
   nextQuestion = () => {
-    console.log('teste botão');
+    // console.log('teste botão');
+    const { history } = this.props;
+    const { curentQuestion } = this.state;
+    const number = 4;
+    if (curentQuestion === number) {
+      history.push('/feedback');
+    } else {
+      this.setState({
+        curentQuestion: curentQuestion + 1,
+        timer: 30,
+        isBtnAnswerDisable: false,
+        correct: 'black',
+        incorrect: 'black',
+      }, () => this.setAnswers());
+    }
   };
 
   render() {
     const { questions } = this.props;
     const { arrayAnswers, correct, incorrect, timer, isBtnAnswerDisable } = this.state;
-    console.log(arrayAnswers);
+    // console.log(arrayAnswers);
     return (
       <div>
         <Header />
@@ -186,6 +204,7 @@ class Game extends Component {
 
 const mapStateToProps = (state) => ({
   questions: state.game.questions,
+  score: state.player.score,
 });
 
 export default connect(mapStateToProps)(Game);
