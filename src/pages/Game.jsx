@@ -12,7 +12,6 @@ class Game extends Component {
     incorrect: 'black',
     timer: 30,
     isBtnAnswerDisable: false,
-    // scoreQuestion: 0,
   };
 
   async componentDidMount() {
