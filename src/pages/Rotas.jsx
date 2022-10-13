@@ -4,6 +4,7 @@ import Login from './Login';
 import Settings from './Settings';
 import Game from './Game';
 import Feedback from './Feedback';
+import Ranking from './Ranking';
 
 export default class Rotas extends Component {
   render() {
@@ -14,6 +15,7 @@ export default class Rotas extends Component {
           <Route exact path="/settings" component={ Settings } />
           <Route exact path="/game" component={ Game } />
           <Route path="/feedback" component={ Feedback } />
+          <Route path="/ranking" component={ Ranking } />
         </Switch>
       </div>
     );
