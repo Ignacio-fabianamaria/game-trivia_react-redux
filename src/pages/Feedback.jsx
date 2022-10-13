@@ -80,7 +80,6 @@ Feedback.propTypes = {
 export default connect(mapStateToProps)(Feedback);
 
 Feedback.propTypes = {
-
   history: PropTypes.shape({
     push: PropTypes.func,
   }),
