@@ -14,6 +14,11 @@ class Feedback extends Component {
     this.setState({ urlImg });
   }
 
+  loginClick = () => {
+    const { history } = this.props;
+    history.push('/');
+  };
+
   render() {
     const { name, score, corAnswers } = this.props;
     const { urlImg } = this.state;
@@ -35,6 +40,13 @@ class Feedback extends Component {
         {verifScore
           ? <p data-testid="feedback-text">Well Done!</p>
           : <p data-testid="feedback-text">Could be better...</p>}
+        <button
+          data-testid="btn-play-again"
+          type="button"
+          onClick={ this.loginClick }
+        >
+          Play Again
+        </button>
       </div>
     );
   }
@@ -54,3 +66,10 @@ Feedback.propTypes = {
 };
 
 export default connect(mapStateToProps)(Feedback);
+
+Feedback.propTypes = {
+
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+}.isRequired;
