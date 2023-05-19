@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addPlayerAction } from '../Redux/Actions';
+import logo from '../styles/trivia.png';
+import '../styles/login.css';
 
 class Login extends Component {
   state = {
@@ -49,64 +51,58 @@ class Login extends Component {
       }),
     );
     history.push('/game');
-
-    // const response = await fetch('https://opentdb.com/api_token.php?command=request')
-    // const json = await response.json()
-    // localStorage.setItem('token', json.token)
-
-    // fetch('https://opentdb.com/api_token.php?command=request')
-    //   .then((response) => response.json())
-    //   .then((jsonResponse) => {
-    //     localStorage.setItem('token', jsonResponse.token);
-    //   })
-    //   .catch(() => localStorage.setItem('token', 'erro'));
   };
 
   render() {
     const { isBtnDisabled } = this.state;
     return (
-      <div>
-        <h1>LOGIN</h1>
+
+      <header className="App-header">
+        <img src={ logo } className="App-logo" alt="logo" />
         <form>
-          <label htmlFor="nome">
-            Nome
-            <input
-              id="nome"
-              data-testid="input-player-name"
-              type="text"
-              name="nome"
-              onChange={ this.handleChange }
-            />
-          </label>
-          <br />
-          <label htmlFor="email">
-            Email
-            <input
-              id="email"
-              data-testid="input-gravatar-email"
-              type="text"
-              name="email"
-              onChange={ this.handleChange }
-            />
-          </label>
-          <br />
-          <button
-            type="button"
-            data-testid="btn-play"
-            disabled={ isBtnDisabled }
-            onClick={ this.onClick }
-          >
-            Play
-          </button>
+          <fieldset>
+            <legend>LOGIN</legend>
+            <label htmlFor="nome">
+              Nome
+              <input
+                id="nome"
+                data-testid="input-player-name"
+                type="text"
+                name="nome"
+                onChange={ this.handleChange }
+              />
+            </label>
+            <br />
+            <label htmlFor="email">
+              Email
+              <input
+                id="email"
+                data-testid="input-gravatar-email"
+                type="text"
+                name="email"
+                onChange={ this.handleChange }
+              />
+            </label>
+            <br />
+            <button
+              type="button"
+              data-testid="btn-play"
+              disabled={ isBtnDisabled }
+              onClick={ this.onClick }
+            >
+              Play 🕹️
+            </button>
+          </fieldset>
         </form>
         <button
           data-testid="btn-settings"
           type="button"
           onClick={ this.settingsClick }
         >
-          Settings
+          Settings ⚙️
         </button>
-      </div>
+      </header>
+
     );
   }
 }
