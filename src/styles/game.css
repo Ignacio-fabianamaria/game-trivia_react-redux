@@ -1,0 +1,21 @@
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+section[ data-testid = 'answer-options' ] {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 2em;
+}
+
+.gategory-game {
+  font-size: 1.3em;
+}
+
+.title-question {
+  font-size: 1.4em;
+  font-weight: 900;
+  padding: 1em;
+}

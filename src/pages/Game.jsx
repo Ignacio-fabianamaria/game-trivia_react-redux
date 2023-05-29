@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getTrivia, getScore } from '../Redux/Actions';
 import Header from '../components/Header';
+import '../styles/game.css';
 
 class Game extends Component {
   state = {
@@ -152,14 +153,15 @@ class Game extends Component {
       <div>
         <Header />
         <h1>{ timer }</h1>
-        <p>Game</p>
+
         <h3
+          className="category-game"
           data-testid="question-category"
         >
           {questions && this.renderQuestion()?.category}
 
         </h3>
-        <p data-testid="question-text">
+        <p className="title-question" data-testid="question-text">
           {questions && this.renderQuestion()?.question}
         </p>
         <section data-testid="answer-options">

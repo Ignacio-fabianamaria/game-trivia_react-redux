@@ -1,0 +1,10 @@
+.header-game {
+  align-items: center;
+  background-color: rgb(110, 51, 228);
+  color: white;
+  display: flex;
+  font-size: 1.1em;
+  gap: 2em;
+  justify-content: center;
+  padding: 1em;
+}

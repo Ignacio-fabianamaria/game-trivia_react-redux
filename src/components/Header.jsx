@@ -3,26 +3,33 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { MD5 } from 'crypto-js';
 
+import '../styles/header.css';
+
 class Header extends Component {
   state = {
     urlImg: '' };
 
   componentDidMount() {
+    console.log('componentDidMount called');
     this.emailToHash();
   }
 
   emailToHash = async () => {
     const { email } = this.props;
-    const urlImg = await MD5(email).toString();
-    this.setState({ urlImg });
-    console.log(urlImg);
+    if (email && email.trim() !== '') {
+      const urlImg = await MD5(email).toString();
+      console.log('urlImg :', urlImg);
+      this.setState({ urlImg });
+    } else {
+      console.log('Invalid email');
+    }
   };
 
   render() {
     const { name, score } = this.props;
     const { urlImg } = this.state;
     return (
-      <div>
+      <div className="header-game">
         <img
           data-testid="header-profile-picture"
           src={ `https://www.gravatar.com/avatar/${urlImg}` }
@@ -44,7 +51,7 @@ const mapStateToProps = (state) => ({
 Header.propTypes = {
   name: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
-  score: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps)(Header);
